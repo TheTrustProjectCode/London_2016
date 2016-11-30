@@ -1,0 +1,26 @@
+Thing > Organization
+name
+description
+url (URL)
+address (Place)
+contactPoint (Person)
+email
+founder (Person)
+foundingDate
+foundingLocation
+funder (Person or Organization)
+logo
+memberOf (Organization)
+numberOfEmployees
+parentOrganization (Organization)
+taxID
+telephone
+
+Standards > Organization
+sourcename -> name
+mission -> description
+ethics (url)
+funding -> funder
+sourcing (url)
+diversity (url)
+

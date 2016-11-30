@@ -1,0 +1,111 @@
+#wrapper {
+    margin: 0 10px;
+}
+
+.query {
+    text-align: center;
+}
+
+input.url {
+    width: 400px;
+    padding: 5px;
+}
+
+button {
+    padding: 5px;
+    min-width: 100px;
+}
+
+.sidebar {
+    float: right;
+    width: 340px;
+}
+
+.sidebar h4 {
+    margin: 0 0 5px 0;
+}
+
+.article {
+    margin-right: 350px;
+}
+
+ul {
+    list-style: none;
+    padding: 0px 0px 0px 10px;
+}
+
+li {
+    margin: 5px 0;
+}
+
+.related-articles span {
+    margin-bottom: 5px 0;
+}
+
+li.related-article {
+    background-color: #EFEFEF;
+    margin-bottom: 10px;
+}
+
+a.title {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Credibility */
+
+.credibility {
+    font-size: 200%;
+    font-weight: bold;
+}
+
+.credibility-score {
+    font-size: 150%;
+}
+
+.credibility.level0 {
+    color: #888888;
+}
+
+.credibility.level1 {
+    color: #ff9900;
+}
+
+.credibility.level2 {
+    color: #006600;
+}
+
+.credibility.level3 {
+    color: #33cc33;
+}
+
+/* Named Entities */
+
+span.person {
+    background-color: #EE7777;
+}
+
+span.organisation {
+    background-color: #7777EE;
+}
+
+span.place {
+    background-color: #77EE77;
+}
+
+span.event {
+    background-color: #EEEE77;
+}
+
+span.jobtitle {
+    background-color: #77EEEE;
+}
+
+span.concept {
+    background-color: #EEEEEE;
+}
+
+span.work {
+    background-color: #EE77EE;
+}

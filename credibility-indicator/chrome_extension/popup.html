@@ -1,0 +1,60 @@
+<!doctype html>
+<!--
+This page is shown when the extension button is clicked, because the
+"browser_action" field in manifest.json contains the "default_popup" key with
+value "popup.html".
+-->
+<html>
+ <head>
+   <title>Checking Source Credibility on Topic...</title>
+
+   <style>
+     body{
+
+       width: 350px;
+       font-size: 100%;
+       word-wrap: break-word;
+       }
+     #hideshow {
+       outline: 0;
+       border: none;
+       padding: 15px 32px;
+       text-align: center;
+       text-decoration: none;
+       display: inline-block;
+       font-size: 16px;
+       background-color: #e7e7e7 ;
+         color: black;
+       }
+      #explanation {
+       display: none;
+       font-family: "Lucida Grande";
+       font-size: 80%;
+     }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+   <script src="popup.js"></script>
+ </head>
+ <body>
+   <h1> credibility</h1>
+   <p id="processing"></p>
+   <h1 id="output"></h1>
+   <br>
+   <input type='button' id='hideshow' value='What does it mean?'>
+     <div id="explanation">
+      <p><ul type="disc">
+        <li><b>credible:</b>  > 0.5</li>
+        <li><b>undefined:</b> > 0.25 AND < 0.5</li>
+        <li><b>not credible:</b>  < 0.25</li>
+      </ul>
+      The credibility indicator shows you how credible the article you are reading is.
+      </br>It is computed from the article itself and hyperlinks in the article text with the same domain. The entities of both the article and the hyperlink articles are being compared:
+      <ul type="disc">
+        <li>High conformity of the entities leads to high credibility.</li>
+        <li>Low conformity of the entities leads to low credibility</li>
+      </ul>
+      </p>
+    </div>
+  </body>
+</html>

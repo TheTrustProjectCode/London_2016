@@ -1,0 +1,56 @@
+<div class="result" xmlns:th="http://www.thymeleaf.org" th:if="${credibilityResult}">
+    <div class="sidebar">
+        <div class="metadata">
+            <h2 th:text="#{credibility}"></h2>
+            <div th:object="${credibilityResult}">
+                <span th:if="*{credibility == 0}" class="credibility level0" th:text="#{credibility.level0}"></span>
+                <span th:if="*{credibility &gt; 0 and credibility &lt;= 0.25}" class="credibility level1" th:text="#{credibility.level1}"></span>
+                <span th:if="*{credibility &gt; 0.25 and credibility &lt;= 0.5}" class="credibility level2" th:text="#{credibility.level2}"></span>
+                <span th:if="*{credibility &gt; 0.5}" class="credibility level3" th:text="#{credibility.level3}"></span>
+            </div>
+            <br/>
+            <span class="credibility-score" th:text="#{score}"></span>
+            <span class="credibility-score" th:text="${#numbers.formatDecimal(credibilityResult.credibility, 1, 'DEFAULT', 2, 'DEFAULT')}"></span>
+            <h3 th:text="#{articles.related}"></h3>
+            <ul class="related-articles">
+                <li class="related-article" th:each="comparison : ${credibilityResult.relatedArticles.values()}" th:object="${comparison}">
+                    <a class="title" th:object="${comparison.processingResult}" th:href="*{url}" target="_blank" th:text="*{title}"></a><br/>
+                    <span th:inline="text">[[#{similarity}]]: [[*{#numbers.formatDecimal(score, 1, 'DEFAULT', 2, 'DEFAULT')}]]</span>
+                    <h4 th:text="#{entities.matched}"></h4>
+                    <ul>
+                        <li th:each="entity : ${comparison.overlappingEntities}" th:object="${entity}">
+                            <span th:text="*{label}"></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <h3 th:text="#{namedEntities}"></h3>
+            <ul>
+                <li th:each="entity : ${credibilityResult.entitiesOfInterest.keySet()}" th:object="${entity}">
+                    <span th:text="*{label}"></span>
+                     (<a th:href="*{uri}" target="_blank" th:text="*{id}"></a>)<br/>
+                    <span th:text="#{niche}"></span>:
+                    <span th:text="*{#numbers.formatDecimal(popularity, 1, 'DEFAULT', 2, 'DEFAULT')}"></span><br/>
+                    <span th:text="#{relevance}"></span>:
+                    <span th:text="${#numbers.formatDecimal(credibilityResult.entitiesOfInterest.get(entity), 1, 'DEFAULT', 2, 'DEFAULT')}"></span>
+                </li>
+            </ul>
+            <h3 th:text="#{links}"></h3>
+            <ul>
+                <li th:each="link : ${credibilityResult.processingResult.links}">
+                    <a th:href="${link}" target="_blank" th:text="${link}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="article" th:object="${credibilityResult.processingResult}">
+        <h2 class="title" th:text="*{title}"></h2>
+        <!--<div class="metadata">
+            <span class="url" th:text="*{url}"></span>
+        </div>-->
+        <div class="text" th:utext="*{htmlContent}">
+
+        </div>
+    </div>
+</div>

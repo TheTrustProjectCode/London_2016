@@ -1,0 +1,100 @@
+#%RAML 0.8
+# JSON Schema creator at http://jsonschema.net/
+# schemas generated with "use absolute IDs", "force required", "schema array"
+title: Trust Project Organization
+/:
+  get:
+    displayName: Organization
+    responses:
+      200:
+        body:
+          application/json:
+            schema: |
+              {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "contactPoint": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "founder": {
+                    "type": "string"
+                  },
+                  "foundingDate": {
+                    "type": "string"
+                  }, 
+                  "foundingLocation": {
+                    "type": "string"
+                  }, 
+                  "funder": {
+                    "type": "string"
+                  }, 
+                  "logo": {
+                    "type": "string"
+                  },
+                  "memberOf": {
+                    "type": "string"
+                  }, 
+                  "numberOfEmployees": {
+                    "type": "string"
+                  }, 
+                  "parentOrganization": {
+                    "type": "string"
+                  },     
+                  "taxID": {
+                    "type": "string"
+                  }, 
+                  "telephone": {
+                    "type": "string"
+                  },
+                  "ethics": {
+                    "type": "string"
+                  },
+                  "sourcing": {
+                    "type": "string"
+                  }, 
+                  "diversity": {
+                    "type": "string"
+                  }             
+                },
+                "required": [
+                  "name",
+                  "description",
+                  "address",
+                  "email"
+                  ]
+              }
+            example: |
+              {
+                "name": "The Economist",
+                "description": "The Economist online offers authoritative insight and opinion on international news, politics, business, finance, science and technology.",
+                "address": "123 London St",
+                "url": "www.economist.com",
+                "foundingDate": "1843",
+                "foundingLocation": "London, UK",
+                "address": "123 London St",
+                "contactPoint": "Robin Raven",
+                "email": "contact@economist.com",
+                "logo": "http://cdn.static-economist.com/sites/all/themes/econfinal/images/svg/logo.svg",
+                "funder": "ABC Corp",
+                "memberOf": "The Economist Group",
+                "numberOfEmployees": "345",
+                "parentOrganization": "The Economist Group",
+                "taxID": "123lol",
+                "telephone": "8675309",
+                "mission": "http://www.economist.com/help/about-us",
+                "ethics": "http://www.economist.com/help/about-us",
+                "diversity": "http://www.economist.com/help/about-us"
+              }

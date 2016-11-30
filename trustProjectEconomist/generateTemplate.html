@@ -1,0 +1,33 @@
+<html>
+<head>
+<head>
+<title>Welcome to the Trust Project Transparency Indicators Generator Tool</title>
+</head>
+<body>
+<h1> Trust Project Transparency Indicators Generator Tool </h1>
+<h2> Include the follow code snippet on your web page</h2>
+<code>
+<meta charset="utf-8">
+<div vocab="http://schema.org" typeof="Organization">
+  {{ if ne .Name "" -}}<meta property="name" content="{{ .Name}}" />{{- end -}}
+  {{- if ne .Description "" -}}<meta property="description" content="{{ .Description.}}" />{{- end -}}
+  {{- if ne .URL "" -}}<meta property="url" content="{{ .URL}}" />{{- end -}}
+  {{- if ne .FoundingDate "" -}}<meta property="foundingDate" content="{{ .FoundingDate}}" />{{- end -}}
+  {{- if ne .FoundingLocation "" -}}<meta property="foundingLocation" content="{{ .FoundingLocation}}" />{{- end -}}
+  {{- if ne .Address "" -}}<meta property="address" content="{{ .Address}}" />{{- end -}}
+  {{- if ne .ContactPoint "" -}}<meta property="contactPoint" content="{{ .ContactPoint}}" />{{- end -}}
+  {{- if ne .Email "" -}}<meta property="email" content="{{ .Email}}" />{{- end -}}
+  {{- if ne .Logo "" -}}<meta property="logo" content="{{ .Logo}}" />{{- end -}}
+  {{- if ne .Funder "" -}}{{- if ne .URL "" -}}<meta property="funder" content="{{ .Funder}}" />{{- end -}}
+  {{- if ne .MemberOf "" -}}<meta property="memberOf" content="{{ .MemberOf}}" />{{- end -}}
+  {{- if ne .NumberOfEmployees "" -}}<meta property="numberOfEmployees" content="{{ .NumberOfEmployees}}" />{{- end -}}
+  {{- if ne .ParentOrganization "" -}}<meta property="parentOrganization" content="{{ .ParentOrganization}}" />{{- end -}}
+  {{- if ne .TaxID "" -}}<meta property="taxID" content="{{ .TaxID}}" />{{- end -}}
+  {{- if ne .Telephone "" -}}<meta property="telephone" content="{{ .Telephone}}" />{{- end -}}
+  {{- if ne .Mission "" -}}<meta property="mission" content="{{ .Mission}}" />{{- end -}}
+  {{- if ne .Ethics "" -}}<meta property="ethics" content="{{ .Ethics}}" />{{- end -}}
+  {{- if ne .Diversity "" -}}<meta property="diversity" content="{{ .Diversity}}" />{{- end -}}
+</div>
+</code>
+</body>
+</html>

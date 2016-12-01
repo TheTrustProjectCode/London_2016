@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"reflect"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -36,15 +37,7 @@ func Generate(w http.ResponseWriter, r *http.Request) {
 		t, _ := template.ParseFiles("generate.html")
 		t.Execute(w, nil)
 	} else {
-		// Not quite working yet.
-		// generatePage(w, r)
-		data, err := ioutil.ReadFile("generateTest.html")
-		if err == nil {
-			w.WriteHeader(http.StatusOK)
-			w.Write([]byte(data))
-		} else {
-			w.Write([]byte(`{"code":500,"message":"Internal Server Error"}`))
-		}
+		generatePage(w, r)
 	}
 }
 
@@ -58,65 +51,50 @@ func validatePage(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.Write([]byte(`{"code":500,"message":"Internal Server Error"}`))
 	}
-	var url string
+	var webURL *http.Request
 	for key, values := range r.Form {
 		for _, value := range values {
 			if key == "webURL" {
-				url = value
+				webURL, err = http.NewRequest("GET", value, nil)
+				if err != nil {
+					w.Write([]byte(`{"code":500,"message":"Internal Server Error"}`))
+				}
 			}
 		}
 	}
 
-	var organization Organization
-
-	// Need to validate the URL.
-	doc, err := goquery.NewDocument(url)
+	resp, err := makeRequest(webURL)
 	if err != nil {
-		log.Fatal(err)
+		w.Write([]byte(`{"code":500,"message":"Internal Server Error"}`))
 	}
 
-	// This needs to be refactored to be cleaner, probably send to another
-	// service that uses javascript then return to Go for additional validation.
+	doc, err := goquery.NewDocumentFromResponse(resp)
+	if err != nil {
+		w.Write([]byte(`{"code":500,"message":"Internal Server Error"}`))
+	}
+
+	var organization Organization
+	// This should likely be replaced with an actual form processing tool.
 	doc.Find("meta").Each(func(index int, item *goquery.Selection) {
-		switch {
-		case item.AttrOr("property", "") == "name":
-			organization.Name = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "description":
-			organization.Description = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "url":
-			organization.URL = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "address":
-			organization.Address = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "contactPoint":
-			organization.ContactPoint = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "email":
-			organization.Email = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "founder":
-			organization.Founder = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "foudingDate":
-			organization.FoundingDate = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "foudingLocation":
-			organization.FoundingLocation = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "funder":
-			organization.Funder = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "logo":
-			organization.Logo = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "memberOf":
-			organization.MemberOf = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "numberOfEmployees":
-			organization.NumberOfEmployees = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "parentOrganization":
-			organization.ParentOrganization = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "taxID":
-			organization.TaxID = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "telephone":
-			organization.Telephone = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "ethics":
-			organization.Ethics = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "mission":
-			organization.Mission = item.AttrOr("content", "")
-		case item.AttrOr("property", "") == "diversity":
-			organization.Diversity = item.AttrOr("content", "")
+		val := reflect.ValueOf(&organization).Elem()
+		key := item.AttrOr("property", "")
+		value := item.AttrOr("content", "")
+		if f := val.FieldByName(key); f.IsValid() {
+			if f.CanSet() {
+				switch f.Type().Kind() {
+				// Only need string for now.
+				case reflect.String:
+					f.SetString(value)
+				case reflect.Array:
+					f.SetString(value)
+				default:
+					fmt.Printf("Unsupported format %v for field %s\n", f.Type().Kind(), key)
+				}
+			} else {
+				fmt.Printf("Key '%s' cannot be set\n", key)
+			}
+		} else {
+			fmt.Printf("Key '%s' does not have a corresponding field in obj %+v\n", key, organization)
 		}
 	})
 
@@ -124,7 +102,20 @@ func validatePage(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.Write([]byte(`{"code":500,"message":"Internal Server Error"}`))
 	}
-	tmpl.Execute(w, organization)
+	tmpl.Execute(w, &organization)
+}
+
+func makeRequest(req *http.Request) (*http.Response, error) {
+	tr := &http.Transport{}
+
+	client := &http.Client{
+		Transport: tr,
+		Timeout:   10 * time.Second,
+	}
+
+	resp, err := client.Do(req)
+
+	return resp, err
 }
 
 func generatePage(w http.ResponseWriter, r *http.Request) {
@@ -134,20 +125,8 @@ func generatePage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var organization Organization
-	loadObject(&organization, r.Form)
-	fmt.Println(organization)
-	tmpl, err := template.ParseFiles("generateTemplate.html")
-	if err != nil {
-		w.Write([]byte(`{"code":500,"message":"Internal Server Error"}`))
-	}
-	tmpl.Execute(w, organization)
-}
-
-// Map the form to the organization structure. Needs to be beefed up.
-func loadObject(obj interface{}, m map[string][]string) {
-	val := reflect.ValueOf(obj).Elem()
-	// Loop over form into nested form value.
-	for k, values := range m {
+	val := reflect.ValueOf(&organization).Elem()
+	for k, values := range r.Form {
 		for _, v := range values {
 			if f := val.FieldByName(k); f.IsValid() {
 				if f.CanSet() {
@@ -164,10 +143,17 @@ func loadObject(obj interface{}, m map[string][]string) {
 					fmt.Printf("Key '%s' cannot be set\n", k)
 				}
 			} else {
-				fmt.Printf("Key '%s' does not have a corresponding field in obj %+v\n", k, obj)
+				fmt.Printf("Key '%s' does not have a corresponding field in obj %+v\n", k, organization)
 			}
 		}
 	}
+
+	tmpl, err := template.ParseFiles("generateTemplate.html")
+	if err != nil {
+		w.Write([]byte(`{"code":500,"message":"Internal Server Error"}`))
+	}
+
+	err = tmpl.Execute(w, &organization)
 }
 
 func main() {

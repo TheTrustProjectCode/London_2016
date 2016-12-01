@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Welcome to the Trust Project Transparency Indicators Validation Tool</title>
+</head>
+<body>
+<h1> The Trust Project Transparency Indicators</h1>
+<h2> Validate your website's implementation</h2>
+<h3> You've implemented the following transparency indicators</h3>
+{{ if ne .Name "" -}} <p> "Name": "{{ .Name}}",{{- end -}}
+{{- if ne .Description "" -}} <p> "Description": "{{ .Description }}",{{- end -}}
+{{- if ne .URL "" -}} <p> "URL": "{{ .URL }}",{{- end -}}
+{{- if ne .Address "" -}} <p> "Address": "{{ .Address }}",{{- end -}}
+{{- if ne .ContactPoint "" -}} <p> "ContactPoint": "{{ .ContactPoint }}",{{- end -}}
+{{- if ne .Email "" -}} <p> "Email": "{{ .Email }}",{{- end -}}
+{{- if ne .Founder "" -}} <p> "Founder": "{{ .Founder }}",{{- end -}}
+{{- if ne .FoundingDate "" -}} <p> "FoundingDate": "{{ .FoundingDate }}",{{- end -}}
+{{- if ne .FoundingLocation "" -}} <p> "FoundingLocation": "{{ .FoundingLocation }}",{{- end -}}
+{{- if ne .Funder "" -}} <p> "Funder": "{{ .Funder }}",{{- end -}}
+{{- if ne .Logo "" -}} <p> "Logo": "{{ .Logo }}",{{- end -}}
+{{- if ne .MemberOf "" -}} <p> "MemberOf": "{{ .MemberOf }}",{{- end -}}
+{{- if ne .NumberOfEmployees "" -}} <p> "NumberOfEmployees": "{{ .NumberOfEmployees }}",{{- end -}}
+{{- if ne .ParentOrganization "" -}} <p> "ParentOrganization": "{{ .ParentOrganization }}",{{- end -}}
+{{- if ne .ParentOrganization "" -}} <p> "ParentOrganization": "{{ .ParentOrganization }}",{{- end -}}
+{{- if ne .TaxID "" -}} <p> "TaxID": "{{ .TaxID }}",{{- end -}}
+{{- if ne .Telephone "" -}} <p> "Telephone": "{{ .Telephone }}",{{- end -}}
+{{- if ne .Ethics "" -}} <p> "Ethics": "{{ .Ethics }}",{{- end -}}
+{{- if ne .Diversity "" -}} <p> "Diversity": "{{ .Diversity }}",{{- end -}}
+{{- if ne .Mission "" -}} <p> "Mission": "{{ .Mission }}",{{- end -}}
+<h3> The following indicators are missing </h3>
+{{ if eq .Name "" -}} <p> "Name": "{{ .Name}}",{{- end -}}
+{{- if eq .Description "" -}} <p> "Description": "{{ .Description }}",{{- end -}}
+{{- if eq .URL "" -}} <p> "URL": "{{ .URL }}",{{- end -}}
+{{- if eq .Address "" -}} <p> "Address": "{{ .Address }}",{{- end -}}
+{{- if eq .ContactPoint "" -}} <p> "ContactPoint": "{{ .ContactPoint }}",{{- end -}}
+{{- if eq .Email "" -}} <p> "Email": "{{ .Email }}",{{- end -}}
+{{- if eq .Founder "" -}} <p> "Founder": "{{ .Founder }}",{{- end -}}
+{{- if eq .FoundingDate "" -}} <p> "FoundingDate": "{{ .FoundingDate }}",{{- end -}}
+{{- if eq .FoundingLocation "" -}} <p> "FoundingLocation": "{{ .FoundingLocation }}",{{- end -}}
+{{- if eq .Funder "" -}} <p> "Funder": "{{ .Funder }}",{{- end -}}
+{{- if eq .Logo "" -}} <p> "Logo": "{{ .Logo }}",{{- end -}}
+{{- if eq .MemberOf "" -}} <p> "MemberOf": "{{ .MemberOf }}",{{- end -}}
+{{- if eq .NumberOfEmployees "" -}} <p> "NumberOfEmployees": "{{ .NumberOfEmployees }}",{{- end -}}
+{{- if eq .ParentOrganization "" -}} <p> "ParentOrganization": "{{ .ParentOrganization }}",{{- end -}}
+{{- if eq .ParentOrganization "" -}} <p> "ParentOrganization": "{{ .ParentOrganization }}",{{- end -}}
+{{- if eq .TaxID "" -}} <p> "TaxID": "{{ .TaxID }}",{{- end -}}
+{{- if eq .Telephone "" -}} <p> "Telephone": "{{ .Telephone }}",{{- end -}}
+{{- if eq .Ethics "" -}} <p> "Ethics": "{{ .Ethics }}",{{- end -}}
+{{- if eq .Diversity "" -}} <p> "Diversity": "{{ .Diversity }}",{{- end -}}
+{{- if eq .Mission "" -}} <p> "Mission": "{{ .Mission }}",{{- end -}}
+</body>
+</html>

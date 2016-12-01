@@ -13,7 +13,7 @@ The teams and their projects, in no particular order:
   - [dpa-newslab / ajda](https://dpa-newslab.github.io/ajda)
 
 
-If you were at the Hackathon and did not yet make your code available, olease create a directory for your project in this repository and send us a pull request. Thank you!
+If you were at the Hackathon and did not yet make your code available, please do so. You can create a directory for your project in this repository and send us a pull request. Thank you!
 
 https://github.com/TheTrustProjectChallenge/London_2016
 

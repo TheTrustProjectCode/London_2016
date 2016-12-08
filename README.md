@@ -12,6 +12,7 @@ The teams and their projects, in no particular order:
   - [INN / Subject Expertise Bios ](https://github.com/TheTrustProjectChallenge/Subject-Expertise-Bios)
   - [dpa-newslab / ajda](https://dpa-newslab.github.io/ajda)
   - [El Universal / SeeSource ](https://github.com/TheTrustProjectChallenge/London_2016/tree/master/eluniversal)
+  - [Gruner+Jahr / Credibility Indicator](https://github.com/TheTrustProjectChallenge/London_2016/tree/master/credibility-indicator)
 
 
 If you were at the Hackathon and did not yet make your code available, please do so. You can add a link in the list above if the project is hosted elsewhere, or create a directory for your project in this repository (https://github.com/TheTrustProjectChallenge/London_2016). Please send us a pull request afterwards. Thank you!
